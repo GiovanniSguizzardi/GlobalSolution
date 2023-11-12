@@ -28,8 +28,8 @@ public class BicicletaRepository implements Repository<Bicicleta, Long> {
     @Override
     public Bicicleta persist(Bicicleta bicicleta) {
         var sql = "INSERT INTO TB_BICICLETA" +
-                "(ID_BICICLETA, NM_BICICLETA)" +
-                "values(0, ?)";
+                "(ID_BICICLETA, TIPO_BICICLETA,DONO)" +
+                "values(0, ?, ?)";
 
         Connection conn = factory.getConnection();
         PreparedStatement ps = null;
@@ -71,7 +71,7 @@ public class BicicletaRepository implements Repository<Bicicleta, Long> {
                 ClienteRepository clienteRepo = ClienteRepository.build();
                 while (rs.next()){
                     Long id = rs.getLong("ID_BICICLETA");
-                    String nome = rs.getString("NM_BICICLETA");
+                    String nome = rs.getString("TIPO_BICICLETA");
                     Long idCliente = rs.getLong("DONO");
 
                     Cliente dono = clienteRepo.findById(idCliente);
@@ -80,7 +80,7 @@ public class BicicletaRepository implements Repository<Bicicleta, Long> {
             }
 
         }catch (SQLException e){
-            System.err.println("Não foi possível consultar o Animal");
+            System.err.println("Não foi possível consultar a bicicleta");
         }finally {
             fecharObjetos(rs,st,con);
         }
@@ -103,14 +103,14 @@ public class BicicletaRepository implements Repository<Bicicleta, Long> {
             if (rs.isBeforeFirst()){
                 ClienteRepository clienteRepo = ClienteRepository.build();
                 while (rs.next()){
-                    String nome = rs.getString("NM_BICICLETA");
+                    String nome = rs.getString("TIPO_BICICLETA' ");
                     Long idCliente = rs.getLong("DONO");
                     Cliente dono = clienteRepo.findById(idCliente);
                     bicicleta = new Bicicleta(null,nome, dono);
                 }
             }
         }catch (SQLException e){
-            System.err.println("Não foi possível consultar o Animal");
+            System.err.println("Não foi possível consultar o ID da bicicleta");
         }finally {
             fecharObjetos(rs, ps, con);
         }

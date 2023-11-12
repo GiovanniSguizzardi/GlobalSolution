@@ -60,27 +60,24 @@ public class BicicletaRepository implements Repository<Bicicleta, Long> {
         ResultSet rs = null;
         Statement st = null;
 
-        var sql = "SELECT * FROM TB_BICICLETA";
 
         try {
+            String sql = "SELECT * FROM TB_BICICLETA";
             st = con.createStatement();
-
             rs = st.executeQuery(sql);
-
             if (rs.isBeforeFirst()){
                 ClienteRepository clienteRepo = ClienteRepository.build();
                 while (rs.next()){
                     Long id = rs.getLong("ID_BICICLETA");
                     String nome = rs.getString("TIPO_BICICLETA");
                     Long idCliente = rs.getLong("DONO");
-
                     Cliente dono = clienteRepo.findById(idCliente);
                     list.add(new Bicicleta(id, nome, dono));
                 }
             }
 
         }catch (SQLException e){
-            System.err.println("Não foi possível consultar a bicicleta");
+            System.err.println("Não foi possível consultar a bicicleta" + e.getMessage());
         }finally {
             fecharObjetos(rs,st,con);
         }

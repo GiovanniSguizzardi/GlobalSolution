@@ -27,9 +27,7 @@ public class BicicletaRepository implements Repository<Bicicleta, Long> {
     }
     @Override
     public Bicicleta persist(Bicicleta bicicleta) {
-        var sql = "INSERT INTO TB_BICICLETA" +
-                "(ID_BICICLETA, TIPO_BICICLETA,DONO)" +
-                "values(0, ?, ?)";
+        var sql = "INSERT INTO TB_BICICLETA (ID_BICICLETA, TIPO_BICICLETA, DONO) VALUES (0,?,?)";
 
         Connection conn = factory.getConnection();
         PreparedStatement ps = null;
@@ -59,8 +57,6 @@ public class BicicletaRepository implements Repository<Bicicleta, Long> {
         Connection con = factory.getConnection();
         ResultSet rs = null;
         Statement st = null;
-
-
         try {
             String sql = "SELECT * FROM TB_BICICLETA";
             st = con.createStatement();

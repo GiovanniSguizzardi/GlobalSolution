@@ -17,10 +17,9 @@ import java.util.Objects;
 public class ClienteResource implements Resource<Cliente, Long>{
 
     @Context
-    UriInfo uriInfo;
+     UriInfo uriInfo;
 
      ClienteService service = new ClienteService();
-
 
 
     @POST

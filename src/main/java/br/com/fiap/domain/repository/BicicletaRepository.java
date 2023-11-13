@@ -4,6 +4,7 @@ import br.com.fiap.domain.entity.Bicicleta;
 import br.com.fiap.domain.entity.Cliente;
 import br.com.fiap.domain.service.ClienteService;
 import br.com.fiap.infra.ConnectionFactory;
+import oracle.jdbc.proxy.annotation.Pre;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class BicicletaRepository implements Repository<Bicicleta, Long> {
         Connection conn = factory.getConnection();
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps = conn.prepareStatement( sql, new String[]{"ID_BICICLETA"} );
             ps.setString(1, bicicleta.getTipo_bicicleta());
 
             ps.executeUpdate();
@@ -56,11 +57,12 @@ public class BicicletaRepository implements Repository<Bicicleta, Long> {
         List<Bicicleta> list = new ArrayList<>();
         Connection con = factory.getConnection();
         ResultSet rs = null;
-        Statement st = null;
+        PreparedStatement ps = null;
+
+        var sql = "SELECT * FROM TB_BICICLETA";
         try {
-            String sql = "SELECT * FROM TB_BICICLETA";
-            st = con.createStatement();
-            rs = st.executeQuery(sql);
+            ps = con.prepareStatement( sql, new String[]{"ID_BICICLETA"} );
+            rs = ps.executeQuery(sql);
             if (rs.isBeforeFirst()){
                 ClienteRepository clienteRepo = ClienteRepository.build();
                 while (rs.next()){
@@ -73,9 +75,9 @@ public class BicicletaRepository implements Repository<Bicicleta, Long> {
             }
 
         }catch (SQLException e){
-            System.err.println("Não foi possível consultar a bicicleta" + e.getMessage());
+            System.err.println("Não foi possível consultar a bicicleta\n" + e.getMessage());
         }finally {
-            fecharObjetos(rs,st,con);
+            fecharObjetos(rs,ps,con);
         }
         return list;
     }

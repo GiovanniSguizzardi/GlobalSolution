@@ -22,6 +22,7 @@ public class BicicletaResource implements Resource<Bicicleta, Long> {
     @POST
     @Override
     public Response persist(Bicicleta bicicleta) {
+        bicicleta.setId(null);
         Bicicleta persit = service.persist(bicicleta);
 
         if (Objects.isNull(persit)) return Response.status(404).build();
@@ -35,7 +36,7 @@ public class BicicletaResource implements Resource<Bicicleta, Long> {
     @GET
     @Override
     public Response findAll() {
-        List all = service.findAll();
+        List<Bicicleta> all = service.findAll();
         return Response.ok(all).build();
     }
 

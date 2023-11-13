@@ -33,7 +33,7 @@ public class BicicletaRepository implements Repository<Bicicleta, Long> {
         PreparedStatement ps = null;
         try {
             ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, bicicleta.getNome());
+            ps.setString(1, bicicleta.getTipo_bicicleta());
 
             ps.executeUpdate();
 
@@ -96,7 +96,7 @@ public class BicicletaRepository implements Repository<Bicicleta, Long> {
             if (rs.isBeforeFirst()){
                 ClienteRepository clienteRepo = ClienteRepository.build();
                 while (rs.next()){
-                    String nome = rs.getString("TIPO_BICICLETA' ");
+                    String nome = rs.getString("TIPO_BICICLETA");
                     Long idCliente = rs.getLong("DONO");
                     Cliente dono = clienteRepo.findById(idCliente);
                     bicicleta = new Bicicleta(null,nome, dono);

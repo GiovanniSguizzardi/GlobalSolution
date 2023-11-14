@@ -20,7 +20,7 @@ public class GravidaRepository implements Repository <Gravida, Long> {
 
     @Override
     public Gravida persist(Gravida gravida) {
-        var sql = "INSERT INTO TB_GRAVIDA (ID_GRAVIDA) VALUES (0)";
+        var sql = "INSERT INTO TB_GRAVIDA (ID_GRAVIDA, NM_GRAVIDA, NR_IDADE_GRAVIDA, DS_ENDERECO_GRAVIDA, SQ_CPF_GRAVIDA, NR_RG_GRAVIDA, SQ_CEP_GRAVIDA, TP_SANGUINEO) VALUES (0,?,?,?,?,?,?,?)";
 
         Connection conn = factory.getConnection();
         PreparedStatement ps = null;
@@ -30,10 +30,9 @@ public class GravidaRepository implements Repository <Gravida, Long> {
             ps.setInt(2, gravida.getIdade());
             ps.setString(3, gravida.getEndereco());
             ps.setString(4, gravida.getCpf());
-            ps.setString(5, gravida.getEmail());
+            ps.setString(5, gravida.getRg());
             ps.setString(6, gravida.getCep());
             ps.setString(7, gravida.getTipo_sanguineo());
-
 
             ps.executeUpdate();
             final ResultSet rs = ps.getGeneratedKeys();
@@ -67,12 +66,12 @@ public class GravidaRepository implements Repository <Gravida, Long> {
                     Long id = rs.getLong("ID_GRAVIDA");
                     String nome = rs.getString("NM_GRAVIDA");
                     Integer idade = rs.getInt("NR_IDADE");
-                    String endereco = rs.getString("");
-                    String cpf = rs.getString("");
-                    String email = rs.getString("");
-                    String cep = rs.getString("");
-                    String tipo_sanguineo = rs.getString("");
-                    list.add(new Gravida(id, nome, idade, endereco, cpf, email, cep, tipo_sanguineo));
+                    String endereco = rs.getString("DS_ENDERECO_GRAVIDA");
+                    String cpf = rs.getString("SQ_CPF_GRAVIDA");
+                    String rg = rs.getString("NR_RG_GRAVIDA");
+                    String cep = rs.getString("SQ_CEP_GRAVIDA");
+                    String tipo_sanguineo = rs.getString("TP_SANGUINEO");
+                    list.add(new Gravida(id, nome, idade, endereco, cpf, rg, cep, tipo_sanguineo));
                 }
             }
 
@@ -102,12 +101,12 @@ public class GravidaRepository implements Repository <Gravida, Long> {
                 while (rs.next()){
                     String nome = rs.getString("NM_GRAVIDA");
                     Integer idade = rs.getInt("NR_IDADE");
-                    String endereco = rs.getString("");
-                    String cpf = rs.getString("");
-                    String email = rs.getString("");
-                    String cep = rs.getString("");
-                    String tipo_sanguineo = rs.getString("");
-                    gravida = new Gravida(null,nome, idade, endereco, cpf, email, cep, tipo_sanguineo);
+                    String endereco = rs.getString("DS_ENDERECO_GRAVIDA");
+                    String cpf = rs.getString("SQ_CPF_GRAVIDA");
+                    String rg = rs.getString("NR_RG_GRAVIDA");
+                    String cep = rs.getString("SQ_CEP_GRAVIDA");
+                    String tipo_sanguineo = rs.getString("TP_SANGUINEO");
+                    gravida = new Gravida(null,nome, idade, endereco, cpf, rg, cep, tipo_sanguineo);
                 }
             }
         }catch (SQLException e){

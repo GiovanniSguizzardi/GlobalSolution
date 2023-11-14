@@ -7,21 +7,9 @@ public class Gravida {
     private int idade;
     private String endereco;
     private String cpf;
-    private String email;
+    private String rg;
     private String cep;
     private String tipo_sanguineo;
-
-
-    public Gravida(Long id, String nome, int idade, String endereco, String cpf, String email, String cep, String tipo_sanguineo) {
-        this.setId(id);
-        this.setNome(nome);
-        this.setIdade(idade);
-        this.setEndereco(endereco);
-        this.setCpf(cpf);
-        this.setEmail(email);
-        this.setCep(cep);
-        this.setTipo_sanguineo(getTipo_sanguineo());
-    }
 
     public Long getId() {
         return id;
@@ -63,12 +51,12 @@ public class Gravida {
         this.cpf = cpf;
     }
 
-    public String getEmail() {
-        return email;
+    public String getRg() {
+        return rg;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setRg(String rg) {
+        this.rg = rg;
     }
 
     public String getCep() {
@@ -95,9 +83,20 @@ public class Gravida {
                 ", idade=" + getIdade() +
                 ", endereco='" + getEndereco() + '\'' +
                 ", cpf='" + getCpf() + '\'' +
-                ", email='" + getEmail() + '\'' +
+                ", rg='" + getRg() + '\'' +
                 ", cep='" + getCep() + '\'' +
                 ", tipo_sanguineo='" + getTipo_sanguineo() + '\'' +
                 '}';
+    }
+
+    public Gravida(Long id, String nome, int idade, String endereco, String cpf, String rg, String cep, String tipo_sanguineo) {
+        this.id = id;
+        this.nome = nome;
+        this.idade = idade;
+        this.endereco = endereco;
+        this.cpf = cpf;
+        this.rg = rg;
+        this.cep = cep;
+        this.tipo_sanguineo = tipo_sanguineo;
     }
 }

@@ -28,7 +28,7 @@ public class Main {
     public static void main(String[] args) {
         var server = startServer();
         System.out.println(String.format(
-                "started with endpoints available " +
+                "--> Started with endpoints available " +
                         "as %s%nHit Ctrl-C to stop it....", BASE_URI));
         try {
             System.in.read();
